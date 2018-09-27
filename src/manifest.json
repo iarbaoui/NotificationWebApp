@@ -1,0 +1,11 @@
+{
+    "short_name": "NotificationWebApp",
+    "name": "Angular and Google Firebase integration App",
+    "start_url": "/",
+    "gcm_sender_id": "103953800507",
+    "lang": "en-US",
+    "theme_color": "#2A323C",
+    "background_color": "#000",
+    "display": "standalone",
+    "orientation": "portrait"
+}
