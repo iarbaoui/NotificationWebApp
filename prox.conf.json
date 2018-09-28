@@ -1,6 +1,6 @@
 {
   "/App": {
-    "target": "https://localhost:3000",
+    "target": "https://localhost:443",
     "secure": true
   }
 }

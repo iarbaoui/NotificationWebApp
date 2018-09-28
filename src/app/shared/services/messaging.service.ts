@@ -16,6 +16,19 @@ export class MessagingService {
 
   constructor(private db: AngularFirestore, private afAuth: AngularFireAuth) { }
 
+
+  public getUser(){
+    var email = "ilyass.arbaoui@gmail.com";
+    var password = "password";
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((data) =>{
+      console.log("User " + data.user.email + " is signed in.");
+    })
+    .catch( (error) => {
+      console.log("Error: ", error);
+    });
+  }
+
   public updateToken(token){
     this.afAuth.authState.subscribe( user => {
       if (!user) {
@@ -32,6 +45,7 @@ export class MessagingService {
     this.messaging.requestPermission()
     .then(() => {
       console.log('Notification permission granted.');
+      this.registerServiceWorker();
       return this.messaging.getToken()
     })
     .then(token => {
@@ -44,13 +58,21 @@ export class MessagingService {
   }
 
   public receiveMessage() {
+    console.log("Awaiting notifications");
     this.messaging.onMessage((payload) => {
       console.log("Message received. ", payload);
       this.currentMessage.next(payload);
     });
   }
 
-  public getMessageSubject(): BehaviorSubject<string> {
-    return this.currentMessage;
+  public registerServiceWorker(){
+    navigator.serviceWorker.register('../../../firebase-messaging-sw.js')
+    .then( (registration) => {
+      this.messaging.useServiceWorker(registration);
+      console.log("Registration done");
+    })
+    .catch( (error) => {
+      console.log("Not found - Error : ", error);
+    });
   }
 }
