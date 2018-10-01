@@ -54,7 +54,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "NotificationWebApp:build",
-            "port": 3000,
+            "port": 443,
             "ssl": true,
             "proxyConfig": "prox.conf.json"
           },
